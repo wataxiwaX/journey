@@ -47,6 +47,7 @@ type JsonBlog struct {
 	ActiveTheme     string
 	PostsPerPage    int64
 	NavigationItems []structure.Navigation
+	SongUrl			string
 }
 
 type JsonUser struct {
@@ -370,7 +371,7 @@ func apiUploadHandler(w http.ResponseWriter, r *http.Request, _ map[string]strin
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 				return
 			}
-			dst, err := os.Create(filepath.Join(filePath, strconv.FormatInt(time.Now().Unix(), 10)+"_"+uuid.Formatter(uuid.NewV4(), uuid.Clean)+filepath.Ext(part.FileName())))
+			dst, err := os.Create(filepath.Join(filePath, strconv.FormatInt(time.Now().Unix(), 10)+"_"+uuid.Formatter(uuid.NewV4(), uuid.FormatHex)+filepath.Ext(part.FileName())))
 			defer dst.Close()
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -547,7 +548,7 @@ func patchApiBlogHandler(w http.ResponseWriter, r *http.Request, _ map[string]st
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
-		tempBlog := structure.Blog{Url: []byte(configuration.Config.Url), Title: []byte(json.Title), Description: []byte(json.Description), Logo: []byte(json.Logo), Cover: []byte(json.Cover), AssetPath: []byte("/assets/"), PostCount: blog.PostCount, PostsPerPage: json.PostsPerPage, ActiveTheme: json.ActiveTheme, NavigationItems: json.NavigationItems}
+		tempBlog := structure.Blog{Url: []byte(configuration.Config.Url), Title: []byte(json.Title), Description: []byte(json.Description), Logo: []byte(json.Logo), Cover: []byte(json.Cover), AssetPath: []byte("/assets/"), PostCount: blog.PostCount, PostsPerPage: json.PostsPerPage, ActiveTheme: json.ActiveTheme, NavigationItems: json.NavigationItems, SongUrl: []byte(json.SongUrl)}
 		err = methods.UpdateBlog(&tempBlog, userId)
 		// Check if active theme setting has been changed, if so, generate templates from new theme
 		if tempBlog.ActiveTheme != blog.ActiveTheme {
@@ -784,6 +785,7 @@ func blogToJson(blog *structure.Blog) *JsonBlog {
 	jsonBlog.Themes = templates.GetAllThemes()
 	jsonBlog.ActiveTheme = blog.ActiveTheme
 	jsonBlog.NavigationItems = blog.NavigationItems
+	jsonBlog.SongUrl = string(blog.SongUrl)
 	return &jsonBlog
 }
 

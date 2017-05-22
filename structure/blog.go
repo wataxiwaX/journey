@@ -17,4 +17,5 @@ type Blog struct {
 	PostsPerPage    int64
 	ActiveTheme     string
 	NavigationItems []Navigation
+	SongUrl			[]byte
 }

@@ -21,7 +21,7 @@ func UpdateBlog(b *structure.Blog, userId int64) error {
 	if err != nil {
 		return err
 	}
-	err = database.UpdateSettings(b.Title, b.Description, b.Logo, b.Cover, b.PostsPerPage, b.ActiveTheme, navigation, time.Now(), userId)
+	err = database.UpdateSettings(b.Title, b.Description, b.Logo, b.Cover, b.PostsPerPage, b.ActiveTheme, navigation, b.SongUrl, time.Now(), userId)
 	if err != nil {
 		return err
 	}

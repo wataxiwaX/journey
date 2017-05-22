@@ -880,6 +880,10 @@ func atBlogDotDescriptionFunc(helper *structure.Helper, values *structure.Reques
 	return evaluateEscape(values.Blog.Description, helper.Unescaped)
 }
 
+func atBlogDotSongUrlFunc(helper *structure.Helper, values *structure.RequestData) []byte {
+	return evaluateEscape(values.Blog.SongUrl, helper.Unescaped)
+}
+
 func evaluateEscape(value []byte, unescaped bool) []byte {
 	if unescaped {
 		return value

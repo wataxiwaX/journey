@@ -365,6 +365,12 @@ func RetrieveBlog() (*structure.Blog, error) {
 	if err != nil {
 		return &tempBlog, err
 	}
+	// SongUrl
+	row = readDB.QueryRow(stmtRetrieveBlog, "songUrl")
+	err = row.Scan(&tempBlog.SongUrl)
+	if err != nil {
+		return &tempBlog, err
+	}
 	return &tempBlog, err
 }
 

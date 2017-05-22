@@ -9,6 +9,7 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/twinj/uuid"
 	"time"
+	"fmt"
 )
 
 // Handler for read access
@@ -100,8 +101,9 @@ var stmtInitialization = `CREATE TABLE IF NOT EXISTS
 	INSERT OR IGNORE INTO settings (id, uuid, key, value, type, created_at, created_by, updated_at, updated_by) VALUES (4, ?, 'logo', '/public/images/blog-logo.jpg', 'blog', ?, 1, ?, 1);
 	INSERT OR IGNORE INTO settings (id, uuid, key, value, type, created_at, created_by, updated_at, updated_by) VALUES (5, ?, 'cover', '/public/images/blog-cover.jpg', 'blog', ?, 1, ?, 1);
 	INSERT OR IGNORE INTO settings (id, uuid, key, value, type, created_at, created_by, updated_at, updated_by) VALUES (6, ?, 'postsPerPage', 5, 'blog', ?, 1, ?, 1);
-	INSERT OR IGNORE INTO settings (id, uuid, key, value, type, created_at, created_by, updated_at, updated_by) VALUES (7, ?, 'activeTheme', 'promenade', 'theme', ?, 1, ?, 1);
+	INSERT OR IGNORE INTO settings (id, uuid, key, value, type, created_at, created_by, updated_at, updated_by) VALUES (7, ?, 'activeTheme', 'gastly-master', 'theme', ?, 1, ?, 1);
 	INSERT OR IGNORE INTO settings (id, uuid, key, value, type, created_at, created_by, updated_at, updated_by) VALUES (8, ?, 'navigation', '[{"label":"Home", "url":"/"}]', 'blog', ?, 1, ?, 1);
+	INSERT OR IGNORE INTO settings (id, uuid, key, value, type, created_at, created_by, updated_at, updated_by) VALUES (9, ?, 'songUrl', '//music.163.com/outchain/player?type=2&id=202373&auto=0&height=66', 'blog', ?, 1, ?, 1);
 	CREATE TABLE IF NOT EXISTS
 	roles (
 		id			integer NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -143,7 +145,7 @@ func Initialize() error {
 		return err
 	}
 	currentTime := time.Now()
-	_, err = readDB.Exec(stmtInitialization, uuid.Formatter(uuid.NewV4(), uuid.CleanHyphen), currentTime, currentTime, uuid.Formatter(uuid.NewV4(), uuid.CleanHyphen), currentTime, currentTime, uuid.Formatter(uuid.NewV4(), uuid.CleanHyphen), currentTime, currentTime, uuid.Formatter(uuid.NewV4(), uuid.CleanHyphen), currentTime, currentTime, uuid.Formatter(uuid.NewV4(), uuid.CleanHyphen), currentTime, currentTime, uuid.Formatter(uuid.NewV4(), uuid.CleanHyphen), currentTime, currentTime, uuid.Formatter(uuid.NewV4(), uuid.CleanHyphen), currentTime, currentTime, uuid.Formatter(uuid.NewV4(), uuid.CleanHyphen), currentTime, currentTime, uuid.Formatter(uuid.NewV4(), uuid.CleanHyphen), currentTime, currentTime, uuid.Formatter(uuid.NewV4(), uuid.CleanHyphen), currentTime, currentTime, uuid.Formatter(uuid.NewV4(), uuid.CleanHyphen), currentTime, currentTime, uuid.Formatter(uuid.NewV4(), uuid.CleanHyphen), currentTime, currentTime)
+	_, err = readDB.Exec(stmtInitialization, uuid.Formatter(uuid.NewV4(), uuid.FormatCanonical), currentTime, currentTime, uuid.Formatter(uuid.NewV4(), uuid.FormatCanonical), currentTime, currentTime, uuid.Formatter(uuid.NewV4(), uuid.FormatCanonical), currentTime, currentTime, uuid.Formatter(uuid.NewV4(), uuid.FormatCanonical), currentTime, currentTime, uuid.Formatter(uuid.NewV4(), uuid.FormatCanonical), currentTime, currentTime, uuid.Formatter(uuid.NewV4(), uuid.FormatCanonical), currentTime, currentTime, uuid.Formatter(uuid.NewV4(), uuid.FormatCanonical), currentTime, currentTime, uuid.Formatter(uuid.NewV4(), uuid.FormatCanonical), currentTime, currentTime, uuid.Formatter(uuid.NewV4(), uuid.FormatCanonical), currentTime, currentTime, uuid.Formatter(uuid.NewV4(), uuid.FormatCanonical), currentTime, currentTime, uuid.Formatter(uuid.NewV4(), uuid.FormatCanonical), currentTime, currentTime, uuid.Formatter(uuid.NewV4(), uuid.FormatCanonical), currentTime, currentTime, uuid.Formatter(uuid.NewV4(), uuid.FormatCanonical), currentTime, currentTime)
 	// TODO: Is Commit()/Rollback() needed for DB.Exec()?
 	if err != nil {
 		return err
@@ -236,6 +238,16 @@ func checkBlogSettings() error {
 	if err != nil {
 		// Insert navigation
 		err = insertSettingString("navigation", "[{\"label\":\"Home\", \"url\":\"/\"}]", "blog", time.Now(), 1)
+		if err != nil {
+			return err
+		}
+	}
+	// Check for songUrl
+	row = readDB.QueryRow(stmtRetrieveBlog, "songUrl")
+	err = row.Scan(&tempBlog.SongUrl)
+	if err != nil {
+		fmt.Println("There you go!")
+		// Insert songUrl
 		if err != nil {
 			return err
 		}
