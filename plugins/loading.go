@@ -2,8 +2,8 @@ package plugins
 
 import (
 	"errors"
-	"github.com/kabukky/journey/filenames"
-	"github.com/kabukky/journey/structure"
+	"github.com/wataxiwaX/journey/filenames"
+	"github.com/wataxiwaX/journey/structure"
 	"github.com/yuin/gopher-lua"
 	"log"
 	"os"

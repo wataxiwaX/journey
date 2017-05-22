@@ -2,10 +2,10 @@ package methods
 
 import (
 	"encoding/json"
-	"github.com/kabukky/journey/configuration"
-	"github.com/kabukky/journey/database"
-	"github.com/kabukky/journey/slug"
-	"github.com/kabukky/journey/structure"
+	"github.com/wataxiwaX/journey/configuration"
+	"github.com/wataxiwaX/journey/database"
+	"github.com/wataxiwaX/journey/slug"
+	"github.com/wataxiwaX/journey/structure"
 	"log"
 	"time"
 )
