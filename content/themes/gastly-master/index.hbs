@@ -1,0 +1,57 @@
+{{!< default}}
+
+<div class="wrapper">
+
+  <div class="sidebar">
+    <div class="container">
+
+      <div class="header side-item">
+        <div class="child">
+          <h1 class="blog-title">{{@blog.title}}</h1>
+          <h3 class="blog-description">{{@blog.description}}</h3>
+          <ul class="contact">
+            <li><a href="http://github.com/wataxiwaX">Github</a></li>
+            <li><a href="mailto:wataxiwax@gmail.com">Email</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="work side-item inline">
+        <div class="child">
+          <h2 class="side-header">分类</h2>
+          <ul class="portfolio">
+            {{navigation}}
+          </ul>
+        </div>
+      </div>
+
+      <div class="music side-item inline">
+        <div class="child">
+          <h2 class="side-header">每天一点民谣</h2>
+        </div>
+        <div class="song">
+            <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="{{@blog.songUrl}}"></iframe>
+        </div>
+      </div>
+
+      <div class="foot side-item last-item">
+        <div class="child">
+          <h5 class="credit">
+              Ten © 2017
+              <br>
+              Theme by Micah Cowell
+          </h5>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="container">
+      {{> "loop"}}
+      {{pagination}}
+    </div>
+  </div>
+
+</div>
