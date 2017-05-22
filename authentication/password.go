@@ -2,7 +2,7 @@ package authentication
 
 import (
 	"github.com/wataxiwaX/journey/database"
-	"go.googlesource.com/crypto"
+	"golang.org/x/crypto/bcrypt"
 )
 
 func LoginIsCorrect(name string, password string) bool {
