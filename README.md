@@ -18,6 +18,7 @@
     <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86    src="//music.163.com/outchain/player?type=2&id=202373&auto=1&height=66"></iframe>
     
 只需要输入src属性的值就可以了，即输入`//music.163.com/outchain/player?type=2&id=202373&auto=1&height=66`
+调用方式: `@blog.songUrl`
 
 ### 截图
 
