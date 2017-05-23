@@ -7,7 +7,7 @@
     go get github.com/wataxiwaX/journey
     cd $GOPATH/src/github.com/wataxiwaX/journey
     go build
-    cp -r built-in content config.json journey /the/path/you/want
+    cp -r built-in content config.json journey /the/path/you/want
 
 其它详细步骤看[原版](https://github.com/kabukky/journey)的wiki
 
