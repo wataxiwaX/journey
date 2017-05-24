@@ -295,6 +295,7 @@ ul {
       background-color: $white;
       padding: $pad/2;
       margin-bottom: $pad;
+      word-wrap: break-word;
       @include card(1);
       .child {
         position: relative;
