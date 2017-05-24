@@ -358,6 +358,7 @@ ul {
 .post {
   width: 650px;
   float: right;
+  word-wrap: break-word;
   @media screen and (max-width: $lg) {
     width: 450px;
   }
